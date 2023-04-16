@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "name": "Python 3 - Django 4.2",
+            "type": "python",
+            "request": "attach",
+            "port": 5679,
+            "host": "127.0.0.1",
+            "pathMappings": [
+                {
+                    "localRoot": "${workspaceFolder}",
+                    "remoteRoot": "."
+                }
+            ],
+            "django":true
+        }
+    ]
+}

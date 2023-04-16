@@ -30,7 +30,7 @@ services:
       - POSTGRES_PORT=${POSTGRES_PORT}
     ports:
       - "8000:8000"
-      - "5678:5678" # Porta para attach do vs code ao código python rodando no docker
+      - "5679:5679" # Porta para attach do vs code ao código python rodando no docker
     
   node-riobus:
     build: ./mapa/.

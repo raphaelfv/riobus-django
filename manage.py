@@ -13,8 +13,25 @@ def main():
         raise ImportError(
             "Couldn't import Django. Are you sure it's installed and "
             "available on your PYTHONPATH environment variable? Did you "
-            "forget to activate a virtual environment?"
-        ) from exc
+            "forget to activate a virtual environment?") from exc
+
+    # Codigo para debug usando o vs code
+    if (os.environ.get("RUN_MAIN")
+            or os.environ.get("WERKZEUG_RUN_MAIN")) and os.environ.get("VSCODE_DEBUGGER", True):
+        try:
+
+            print("Starting Debug ...")
+            import debugpy
+            debugpy.listen(('0.0.0.0', 5679))
+            # debugpy.wait_for_client()
+            # debugpy.breakpoint()
+
+            print("Debug attached to port 5679")
+        except Exception as e:
+            print("Port 5679 already in use? Check .vscode/launch.json. Error:")
+            print(e)
+    else:
+        print("Debugger already running?")
     execute_from_command_line(sys.argv)
 
 
