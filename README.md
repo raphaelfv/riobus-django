@@ -29,6 +29,13 @@ python manage.py migrate --run-syncdb
 
 O repositório contém um arquivo .env.exemplo, copie este arquivo para um arquivo com nome .env e corrija as variáveis para seus dados de projeto. 
 
+* Criar SECRET_KEY
+
+```
+from django.core.management.utils import get_random_secret_key
+print(get_random_secret_key())
+```
+
 ## Uso
 
 * Ambiente 

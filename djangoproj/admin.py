@@ -3,7 +3,7 @@ from .utils import PrintException
 from django.contrib.auth.models import User
 
 # # Register your models here.
-# from myproj.models import *
+# from djangoproj.models import *
 # try:
 #     admin.site.register(YourModel)
 # except Exception as ex:

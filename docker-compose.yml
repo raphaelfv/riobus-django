@@ -1,0 +1,45 @@
+version: "3.3"
+   
+services:
+  db-riobus:
+    image: postgis/postgis:15-3.3-alpine
+    container_name: db-riobus-django
+    environment:
+      - POSTGRES_DB=${POSTGRES_NAME}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - PGDATA=/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  
+  django-riobus:
+    restart: always 
+    container_name: django-riobus
+    build:
+      context: .
+      dockerfile: Dockerfile-django
+    command: sh -c "sh ./run_django.sh"
+    volumes:
+      - .:/code
+      - ./requirements.txt:/code/requirements.txt
+    environment:
+      - PYTHONUNBUFFERED=1                # atualizacao automatica do log do django
+      - POSTGRES_HOST=${POSTGRES_HOST}
+      - POSTGRES_PORT=${POSTGRES_PORT}
+    ports:
+      - "8000:8000"
+      - "5678:5678" # Porta para attach do vs code ao código python rodando no docker
+    
+  node-riobus:
+    build: ./mapa/.
+    container_name: "node-riobus"
+    restart: always
+    command: sh -c "npm start --host"
+    ports:
+      - "5173:5173"
+    network_mode: "host"        
+
+volumes:
+  postgres_data:
